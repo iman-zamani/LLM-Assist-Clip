@@ -2,7 +2,22 @@
 #include <QProcess>
 #include <QDebug>
 #include <iostream>
+#include <fstream>
+#include <string>
+std::string readFileContent(const std::string& filePath) {
+    std::ifstream file(filePath);
+    if (!file) {
+        std::cerr << "Error: could not open file " << filePath << std::endl;
+        return ""; 
+    }
 
+    std::string content, line;
+    while (std::getline(file, line)) {
+        content += line + "\n";
+    }
+    file.close();
+    return content;
+}
 int main(int argc, char *argv[])
 {
     QCoreApplication app(argc, argv);
@@ -21,7 +36,7 @@ int main(int argc, char *argv[])
 
 
     if (!process.waitForFinished()) {
-        qDebug() << "failed to execute the command:" << process.errorString();
+        qDebug() << "failed to execute command:" << process.errorString();
         return -1;
     }
 
@@ -30,5 +45,9 @@ int main(int argc, char *argv[])
 
     std::cout <<output.toStdString() << std::endl;
 
+    // reading the file extensions that user want 
+    for (int i=1;i<argc;i++){
+
+    }
     return 0;
 }
