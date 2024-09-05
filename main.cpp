@@ -1,12 +1,11 @@
 #include <QApplication>
 #include <QProcess>
 #include <QDebug>
-#include <QClipboard>
 #include <iostream>
 #include <fstream>
 #include <string>
 #include <filesystem>
-
+#include "./clip/clip.h"
 
 
 std::string readFileContent(const std::string& filePath) {
@@ -24,36 +23,32 @@ std::string readFileContent(const std::string& filePath) {
     return content;
 }
 
-void copyTextToClipboard(const QString &text) {
-    QApplication::clipboard()->setText(text);
-}
-
 // this function is for getting the path to all files in the given directory with the specified type 
 std::vector<std::string> getFilesByType(const std::string& dirPath, const std::string& fileType) {
-    std::vector<std::string> fileNames;
+    std::vector<std::string> filePaths;
     std::filesystem::path directory(dirPath);
 
-    // if the directory exists
+    // check directory validity
     if (!std::filesystem::exists(directory) || !std::filesystem::is_directory(directory)) {
-        std::cerr << "Error accessing the directory" << dirPath << std::endl;
-        return fileNames;  // return empty 
+        std::cerr << "Error accessing the directory: " << dirPath << std::endl;
+        return filePaths;
     }
 
-
+    // recursive file search
     try {
-        for (const auto& entry : std::filesystem::directory_iterator(directory)) {
+        for (const auto& entry : std::filesystem::recursive_directory_iterator(directory)) {
             if (entry.is_regular_file() && entry.path().extension() == fileType) {
-                fileNames.push_back(entry.path().filename().string()); 
+                // Compute relative path from the given directory
+                std::filesystem::path relativePath = std::filesystem::relative(entry.path(), directory);
+                filePaths.push_back(relativePath.string());  
             }
         }
     } catch (const std::filesystem::filesystem_error& e) {
-        std::cerr << "Error accessing the directory: " << e.what() << std::endl;
+        std::cerr << "Directory access error: " << e.what() << std::endl;
     }
 
-    return fileNames;
+    return filePaths;
 }
-
-
 int main(int argc, char *argv[]){
     QApplication app(argc, argv);
 
@@ -103,9 +98,12 @@ int main(int argc, char *argv[]){
             clipboard += readFileContent(dirPath+"/"+file) + "\n\n\n";
         }
     }
-    QString copyClipboard = QString::fromStdString(clipboard); 
-     QApplication::clipboard()->setText(QString::fromStdString(clipboard));
-    app.processEvents();
+    clip::set_text(clipboard);
     return 0;
 }
+
+
+
+
+
 
