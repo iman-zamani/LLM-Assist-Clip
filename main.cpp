@@ -1,6 +1,3 @@
-#include <QApplication>
-#include <QProcess>
-#include <QDebug>
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -50,31 +47,16 @@ std::vector<std::string> getFilesByType(const std::string& dirPath, const std::s
     return filePaths;
 }
 int main(int argc, char *argv[]){
-    QApplication app(argc, argv);
+    std::string dirPath ;
+    try {
+        std::filesystem::path currentPath = std::filesystem::current_path();
+        dirPath = currentPath;
 
-    QProcess process;
-    QString command;
-// for windows 
-#if defined(Q_OS_WIN)
-    command = "cd";  
-#else
-    command = "pwd";  // for unix like systems
-#endif
-
-    // start the process
-    process.start(command);
-
-
-    if (!process.waitForFinished()) {
-        qDebug() << "failed to execute command:" << process.errorString();
-        return -1;
+    } catch (const std::filesystem::filesystem_error& e) {
+        std::cerr << "Error getting the current directory: " << e.what() << std::endl;
+        return EXIT_FAILURE;
     }
-
-    // read the output witch is the current directory . use trimmed to remove \n and stuff 
-    QString output = process.readAllStandardOutput().trimmed();  
     
-    std::cout <<output.toStdString() << std::endl;
-    std::string dirPath = output.toStdString();
     // what we will put in clipboard at the end of program 
     std::string clipboard;
     //------------------------------------------------
