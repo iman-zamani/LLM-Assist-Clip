@@ -90,6 +90,32 @@ int main(int argc, char *argv[]){
         std::cerr<<"you need to specify extensions of the files you want"<<std::endl;;
         return EXIT_FAILURE;
     }
+    // application manual by reading the second element of argv (argv2) 
+    std::string argv2 = std::string(argv[1]);
+    if(argv2 == "--help" || argv2 == "-help" || argv2 == "--h" || argv2 == "-h"){
+        std::cout << "Usage: ./LAC [options] <file extensions>\n\n"
+          << "Options:\n"
+          << "  -r          Apply recursive search to file extensions listed after this flag.\n\n"
+          << "Description:\n"
+          << "  LLM-Assist-Clip (LAC) is a utility designed to simplify the process of preparing and\n"
+          << "  transferring project files to large language models (LLMs). It automates the task of\n"
+          << "  copying file contents to your clipboard in a structured format, making it easy for AI\n"
+          << "  to parse and understand. Useful for developers working with AI platforms that require\n"
+          << "  manual input of code snippets or entire files.\n\n"
+          << "Examples:\n"
+          << "  1. Search for .cpp and .h files non-recursively:\n"
+          << "     ./LAC .cpp .h\n\n"
+          << "  2. Search for .txt and .md files recursively:\n"
+          << "     ./LAC -r .txt .md\n\n"
+          << "  3. Search for all specified file types recursively:\n"
+          << "     ./LAC -r .cpp .h .txt\n\n"
+          << "External Libraries Used:\n"
+          << "  - Clip: A cross-platform library used for clipboard operations.\n\n"
+          << "For more information, visit the GitHub repository: https://github.com/iman-zamani/LLM-Assist-Clip\n";
+
+        return 0;
+    } 
+    
     bool recursive = false;
     
     // reading the file types that user want 
