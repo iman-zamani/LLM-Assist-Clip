@@ -64,6 +64,6 @@ filename2.h:
 
 4. **Run the application** by specifying the types of files you want to process, using the `-r` flag as needed for recursive search.
 
-## Simple and Effective
-This tool is crafted to minimize the typically involved friction in preparing and analyzing code with AI tools, providing a straightforward solution to meet essential needs without complicating the user experience.
+## License
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
