@@ -2,6 +2,8 @@
 
 **Project-Scope** is a simple utility designed to enhance the way you visualize, share, and manage project structures. With its intuitive tree-like structure visualization, recursive file search, and clipboard integration, Project-Scope simplifies the process of sharing both the structure and content of project files. It’s a versatile tool perfect for developers, technical writers, and teams who need to communicate codebases or easily paste entire project structures and contents into LLMs (AI) for better handling and understanding.
 
+![app screenshot](Screenshot.png)
+
 ## Key Features
 - **Project(directory) Tree Visualization**: Visualize project directories and file structures in a clean, hierarchical tree format.
 - **Selective Recursive File Search**: Specify file types for recursive directory searches, providing flexibility in the types of files you target.
