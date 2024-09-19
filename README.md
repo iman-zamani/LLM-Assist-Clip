@@ -1,53 +1,72 @@
-# LLM-Assist-Clip
+# Project-Scope
 
 ## Overview
-LLM-Assist-Clip is a utility designed to simplify the process of preparing and transferring project files to large language models (LLMs). This tool automates the task of copying file contents to your clipboard in a structured format, making it easy for AI to parse and understand the code. It’s particularly useful for developers working with AI platforms that require manual input of code snippets or entire files.
+**Project-Scope** is a powerful utility designed to enhance the way you visualize, share, and manage project structures. With its intuitive tree-like structure visualization, recursive file search, and clipboard integration, **Project-Scope** simplifies the process of sharing both the structure and content of project files. It’s a versatile tool perfect for developers, technical writers, and teams who need to communicate codebases or project hierarchies efficiently.
 
-## Features
-- **Selective Recursive File Search**: Allows specification of file types for recursive directory search.
-- **Clipboard Integration**: Formats and copies the content and names of files directly to your clipboard, ready to be pasted into any AI tool or text field.
-- **Cross-Platform Compatibility**: Tested on Linux; expected to work on macOS and Windows as well.
-
-## External Libraries Used
-- **[Clip](https://github.com/dacap/clip)**: A cross-platform library used for clipboard operations.
+## Key Features
+- **Project(directory) Tree Visualization**: Visualize project directories and file structures in a clean, hierarchical tree format.
+- **Selective Recursive File Search**: Specify file types for recursive directory searches, providing flexibility in the types of files you target.
+- **Clipboard Integration**: Automatically formats and copies file paths, contents, and tree structures to the clipboard, making it easy to paste into documents or code review tools.
+- **Cross-Platform Compatibility**: Works on Linux, macOS, and Windows.
+- **Run From Any Directory**: Add **ProjectScope** binary to your system’s PATH so you can run it from any folder, and it will automatically detect your current working directory.
+- **Easily Shareable Structures**: Present your project structure or file contents to others in an organized and shareable manner.
 
 ## Usage
-To use LLM-Assist-Clip, compile and run the program from your terminal or command prompt with file extensions as arguments. The `-r` flag can be used to specify that subsequent file types should be searched for recursively:
+To use **Project-Scope**, first add it to your system's PATH so it can be invoked from any directory. Compile and run the program from your terminal or command prompt, specifying file extensions as arguments. The `-r` flag can be used to indicate recursive searching for certain file types, while the `-t` flag will generate and copy a tree-structured view of the entire project directory to your clipboard.
+
+### Adding ProjectScope to Your System PATH
+To make **ProjectScope** accessible from any directory, you need to add the compiled binary to your system's PATH.
+
+#### Linux / macOS
+1. After building the project, find the location of the compiled binary (e.g., `/path/to/ProjectScope/build/ProjectScope`).
+2. Open your shell configuration file (e.g., `.bashrc`, `.zshrc`):
+   ```bash
+   nano ~/.bashrc
+   ```
+3. Add the following line, replacing `/path/to/ProjectScope/build` with the actual path where **ProjectScope** is located:
+   ```bash
+   export PATH=$PATH:/path/to/ProjectScope/build
+   ```
+4. Save and close the file. Then reload the shell configuration:
+   ```bash
+   source ~/.bashrc
+   ```
+
+#### Windows
+1. After building **ProjectScope**, find the location of the compiled binary (e.g., `C:\path\to\ProjectScope\build\ProjectScope.exe`).
+2. Open the System Properties by searching for "Environment Variables."
+3. Under "System variables," find the `Path` variable, select it, and click "Edit."
+4. Add the path to your **ProjectScope** executable (e.g., `C:\path\to\ProjectScope\build`).
+5. Click "OK" to close the dialogs, and restart your terminal or command prompt.
 
 ### Command Syntax
+Once **ProjectScope** is in your PATH, you can run it from any directory:
 ```bash
-./LAC [options] <file extensions>
+ProjectScope [options] <file extensions>
 ```
 
 ### Options
 - `-r`: Apply recursive search to file extensions listed after this flag.
+- `-t`: Generate a tree-structured view of the project directory.
+- `-p`: Print the copied content directly to the terminal.
 
 ### Examples
 - Search for `.cpp` and `.h` files non-recursively, and for `.txt` and `.md` files recursively:
   ```bash
-  ./LAC .cpp .h -r .txt .md
+  ProjectScope .cpp .h -r .txt .md
   ```
-- Search for all specified file types recursively:
+- Visualize the project structure as a tree and copy it to the clipboard:
   ```bash
-  ./LAC -r .cpp .h .txt
+  ProjectScope -t
   ```
-
-### Output Example
-```
-filename1.cpp:
-<content of filename1.cpp>
-
-filename2.h:
-<content of filename2.h>
-
-...
-```
 
 ## Building the Project
+To build **ProjectScope**, follow these steps:
+
 1. **Clone and navigate to the project**:
    ```bash
-   git clone https://github.com/iman-zamani/LLM-Assist-Clip.git
-   cd LLM-Assist-Clip
+   git clone https://github.com/your-repo/ProjectScope.git
+   cd ProjectScope
    ```
 
 2. **Initialize required submodules**:
@@ -62,8 +81,5 @@ filename2.h:
    cmake --build .
    ```
 
-4. **Run the application** by specifying the types of files you want to process, using the `-r` flag as needed for recursive search.
-
-## License
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+4. **Add the compiled binary to your system’s PATH** (see instructions above).
 
