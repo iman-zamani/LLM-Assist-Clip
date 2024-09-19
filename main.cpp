@@ -72,6 +72,32 @@ std::vector<std::string> getFilesByType(const std::string& dirPath, const std::s
 
     return filePaths;
 }
+std::string list_files(const std::filesystem::path& startPath, const std::string& prefix = "", bool isLast = true) {
+    std::string ret;
+    ret += prefix + (isLast ? "└── " : "├── ") + startPath.filename().string() + "/\n"; 
+
+    std::filesystem::directory_iterator iter(startPath);
+    std::filesystem::directory_iterator end;
+    std::vector<std::filesystem::directory_entry> entries;
+    for (const auto& entry : iter) {
+        entries.push_back(entry);
+    }
+
+    for (size_t i = 0; i < entries.size(); ++i) {
+        const auto& entry = entries[i];
+        bool isEntryLast = (i == entries.size() - 1); 
+
+        std::string newPrefix = prefix + (isLast ? "    " : "│   ");
+
+        if (entry.is_directory()) {
+            ret += list_files(entry.path(), newPrefix, isEntryLast);
+        } else {
+            ret += newPrefix + (isEntryLast ? "└── " : "├── ") + entry.path().filename().string() + "\n";
+        }
+    }
+
+    return ret;
+}
 int main(int argc, char *argv[]){
     std::string dirPath ;
     try {
@@ -117,7 +143,7 @@ int main(int argc, char *argv[]){
     } 
     
     bool recursive = false;
-    
+    bool printAtTheEnd = false;
     // reading the file types that user want 
     for (int i=1;i<argc;i++){
         std::string extension = std::string(argv[i]);
@@ -125,6 +151,14 @@ int main(int argc, char *argv[]){
         if (extension == "-r"){
             recursive = true;
             continue;
+        }
+        else if (extension == "-t" || extension == "--tree"){
+            //std::cout<<dirPath<<std::endl;
+            std::filesystem::path startPath = dirPath;
+            clipboard  = list_files(startPath);
+        }
+        else if (extension == "-p" || extension == "--print"){
+            printAtTheEnd = true;
         }
         // add '.' to extension specified by user if it doesn't have one  
         if (extension.at(0)!='.'){
@@ -141,6 +175,9 @@ int main(int argc, char *argv[]){
         }
     }
     clip::set_text(clipboard);
+    if (printAtTheEnd){
+        std::cout<<clipboard<<std::endl;
+    }
     return 0;
 }
 
