@@ -1,7 +1,6 @@
 # Project-Scope
 
-## Overview
-**Project-Scope** is a powerful utility designed to enhance the way you visualize, share, and manage project structures. With its intuitive tree-like structure visualization, recursive file search, and clipboard integration, **Project-Scope** simplifies the process of sharing both the structure and content of project files. It’s a versatile tool perfect for developers, technical writers, and teams who need to communicate codebases or project hierarchies efficiently.
+**Project-Scope** is a simple utility designed to enhance the way you visualize, share, and manage project structures. With its intuitive tree-like structure visualization, recursive file search, and clipboard integration, Project-Scope simplifies the process of sharing both the structure and content of project files. It’s a versatile tool perfect for developers, technical writers, and teams who need to communicate codebases or easily paste entire project structures and contents into LLMs (AI) for better handling and understanding.
 
 ## Key Features
 - **Project(directory) Tree Visualization**: Visualize project directories and file structures in a clean, hierarchical tree format.
@@ -12,7 +11,7 @@
 - **Easily Shareable Structures**: Present your project structure or file contents to others in an organized and shareable manner.
 
 ## Usage
-To use **Project-Scope**, first add it to your system's PATH so it can be invoked from any directory. Compile and run the program from your terminal or command prompt, specifying file extensions as arguments. The `-r` flag can be used to indicate recursive searching for certain file types, while the `-t` flag will generate and copy a tree-structured view of the entire project directory to your clipboard.
+To use **Project-Scope**, for better usage first add it to your system's PATH so it can be invoked from any directory. Compile and run the program from your terminal or command prompt, specifying file extensions as arguments. The `-r` flag can be used to indicate recursive searching for certain file types, while the `-t` flag will generate and copy a tree-structured view of the entire project directory to your clipboard.
 
 ### Adding ProjectScope to Your System PATH
 To make **ProjectScope** accessible from any directory, you need to add the compiled binary to your system's PATH.
@@ -65,7 +64,7 @@ To build **ProjectScope**, follow these steps:
 
 1. **Clone and navigate to the project**:
    ```bash
-   git clone https://github.com/your-repo/ProjectScope.git
+   git clone https://github.com/iman-zamani/Project-Scope.git
    cd ProjectScope
    ```
 
@@ -82,4 +81,10 @@ To build **ProjectScope**, follow these steps:
    ```
 
 4. **Add the compiled binary to your system’s PATH** (see instructions above).
+
+   
+## License
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+
 
